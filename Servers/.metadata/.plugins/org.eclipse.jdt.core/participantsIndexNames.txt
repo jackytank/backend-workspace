@@ -1,0 +1,13 @@
+INDEX VERSION 1.131
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2404138584.index
+\Lab1-Demo\src\main\java
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2300764968.index
+\com.lab1\src\main\java
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4003996500.index
+\assm-user\src
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3142421180.index
+\lab1\src\main\java
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2423308213.index
+\com.lab1\src\main\java
+C:\Users\balis\Desktop\my-eclipse-workspace\Servers\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3949681242.index
+\assm-user\src

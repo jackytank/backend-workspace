@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Feature" parallel="false">
+	<test name="UnitLevelTest">
+		<classes>
+			<parameter name="param" value="'I am before method'"></parameter>
+			<class name="Bai2.TestClass"></class>
+		</classes>
+	</test>
+</suite>
