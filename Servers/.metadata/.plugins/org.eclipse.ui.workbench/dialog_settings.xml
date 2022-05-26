@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.springsource.ide.eclipse.commons.gettingstarted.wizard.boot.NewSpringBootWizard"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.wst.html.ui.internal.wizard.NewHTMLWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.jdt.ui.java"/>
 			<item value="org.springsource.ide.eclipse.boot.wizards.category"/>
@@ -22,7 +22,7 @@
 	<section name="EditorSelectionDialog">
 		<item key="EditorSelectionDialog.STORE_ID_FILE_EXTENSION" value=".jsp"/>
 		<item key="EditorSelectionDialog.STORE_ID_INTERNAL_EXTERNAL" value="false"/>
-		<item key="EditorSelectionDialog.STORE_ID_DESCR" value="org.eclipse.wst.html.core.htmlsource.source"/>
+		<item key="EditorSelectionDialog.STORE_ID_DESCR" value="org.eclipse.jst.jsp.core.jspsource.source"/>
 	</section>
 	<section name="InstallationDialogSettings">
 		<item key="DIALOG_X_ORIGIN" value="-168"/>
