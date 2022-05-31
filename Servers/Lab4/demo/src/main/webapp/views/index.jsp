@@ -24,7 +24,7 @@
                 <!-- modal -->
                 <jsp:include page="common/login-modal.jsp"></jsp:include>
 
-                <h3 class="my-3">${message}</h3>
+                <h2 class="my-3 text-success">${message}</h2>
 
                 <div id="tag-cart" class="my-3">
                     <a class="btn btn-outline-dark" href="/cart/view">
@@ -66,23 +66,20 @@
                 </div>
 
 
-                <script>
+                <script type="text/javascript">
                     if ("${message}" != "") alert("${message}");
-
                     function addProduct(id) {
-                        fetch('/cart/add/' + id, {
-                            method: 'GET',
-                            redirect: 'follow'
-                        }).then(function (res) {
-                            return res.text()
-                        }).then(function (html) {
-                            let parser = new DOMParser()
-                            let doc = parser.parseFromString(html, 'text/html')
-                            document.querySelector('#listProd').innerHTML = doc.documentElement.querySelector('#listProd').innerHTML
-                            document.querySelector('#tag-cart').innerHTML = doc.documentElement.querySelector('#tag-cart').innerHTML
-                        }).catch(error => {
-                            console.error('There has been a problem with your fetch operation:', error);
-                        });
+                        fetch('/cart/add/' + id)
+                            .then(function (res) {
+                                return res.text()
+                            }).then(function (html) {
+                                let parser = new DOMParser()
+                                let doc = parser.parseFromString(html, 'text/html')
+                                document.querySelector('#listProd').innerHTML = doc.documentElement.querySelector('#listProd').innerHTML
+                                document.querySelector('#tag-cart').innerHTML = doc.documentElement.querySelector('#tag-cart').innerHTML
+                            }).catch(error => {
+                                console.error('There has been a problem with your fetch operation:', error);
+                            });
                     }
                 </script>
             </body>

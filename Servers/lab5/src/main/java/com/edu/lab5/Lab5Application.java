@@ -1,13 +1,13 @@
-package com.edu;
+package com.edu.lab5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Java5AssmApplication {
+public class Lab5Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Java5AssmApplication.class, args);
+		SpringApplication.run(Lab5Application.class, args);
 	}
 
 }

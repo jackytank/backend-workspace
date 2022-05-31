@@ -16,7 +16,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.username!=null}">
                         <div class="nav-item dropdown d-inline-flex ">
-                            <a class="nav-link ibar-title py-0 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            <a class="nav-link ibar-title py-0 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="fa-solid fa-user me-2"></i> Hi, Tri
                             </a>

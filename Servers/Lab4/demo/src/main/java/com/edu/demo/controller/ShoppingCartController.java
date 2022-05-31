@@ -5,7 +5,6 @@ import com.edu.demo.service.SessionService;
 import com.edu.demo.service.ShoppingCartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -35,19 +33,19 @@ public class ShoppingCartController {
         return "cart1";
     }
 
-    @GetMapping(value = "/add/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping("/add/{id}")
     public ModelAndView addToCart(@PathVariable int id, ModelMap model) {
         cart.addProduct(id);
         session.set("cartQuantity", cart.getCount());
         model.addAttribute("message", "Add success!!");
-        return new ModelAndView("forward:/cart/view", model);
+        return new ModelAndView("redirect:/products", model);
     }
 
     @PostMapping("/update/{id}")
-    public ModelAndView updateCart(@PathVariable int id, ModelMap model) {
+    public String updateCart(@PathVariable int id, ModelMap model) {
         cart.updateProduct(id, param.getInt("quantity", 0));
         model.addAttribute("message", "Update success!");
-        return new ModelAndView("redirect:/cart/view", model);
+        return "redirect:/cart/view";
     }
 
     @GetMapping("/remove/{id}")
@@ -58,9 +56,9 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/clear")
-    public ModelAndView clearCart(ModelMap model) {
+    public String clearCart(ModelMap model) {
         cart.clear();
         model.addAttribute("message", "Clear success!");
-        return new ModelAndView("redirect:/cart/view", model);
+        return "redirect:/cart/view";
     }
 }

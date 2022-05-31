@@ -6,9 +6,11 @@ import com.edu.demo.service.SessionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/account")
@@ -28,13 +30,14 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public String postLogin() {
+    public ModelAndView postLogin(ModelMap model) {
         String username = paramService.getString("username", "");
         String password = paramService.getString("password", "");
         boolean remember = paramService.getBoolean("remember", false);
-
-        sessionService.set("username", username);
-
+        if (username.equals("poly") && password.equals("1221")) {
+            sessionService.set("username", username);
+            model.addAttribute("message", "Login Successfully!!!!!!");
+        }
         if (remember) {
             cookieService.add("username", username, 1);
             cookieService.add("password", password, 1);
@@ -44,7 +47,7 @@ public class AccountController {
             cookieService.remove("password");
             cookieService.remove("remember");
         }
-        return "redirect:/products";
+        return new ModelAndView("redirect:/products", model);
     }
 
     @GetMapping("/logout")

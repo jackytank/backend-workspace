@@ -40,7 +40,6 @@ public class Products implements Cloneable {
                 prod.setQuantity(quantity);
                 this.quantity -= quantity;
             } catch (CloneNotSupportedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
