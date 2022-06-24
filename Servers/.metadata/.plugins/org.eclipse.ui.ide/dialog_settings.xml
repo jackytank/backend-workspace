@@ -78,6 +78,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\balis\Desktop\JAVA-5"/>
 			<item value="C:\Users\balis\Desktop\my-eclipse-workspace\Servers\lab5"/>
 			<item value="C:\Users\balis\Desktop\labb3"/>
 			<item value="C:\Users\balis\Desktop\lab3"/>
