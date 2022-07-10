@@ -1,0 +1,13 @@
+{
+    "name": "Nguyen Sieu Nhan",
+    "marks": 2.3,
+    "gender": true,
+    "contact": {
+        "phone": "0293849283",
+        "email": "sieunhan@gmail.com"
+    },
+    "subjects": [
+        "WEB205",
+        "WEB113"
+    ]
+}

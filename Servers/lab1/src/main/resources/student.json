@@ -1,0 +1,13 @@
+{
+    "name": "Nguyen Van Kaito",
+    "gender": true,
+    "marks": 8.3,
+    "contact": {
+        "email": "kaitokid@gmail.com",
+        "phone": "0489569384"
+    },
+    "subjects": [
+        "WEB205",
+        "COM108"
+    ]
+}

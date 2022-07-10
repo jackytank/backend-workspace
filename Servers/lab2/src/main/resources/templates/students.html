@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a th:href="@{'/student?index='+${index+1}}">Next</a>
+    <p>Index: [(${index})]</p>
+    <hr>
+    <ul th:object="${student}">
+        <li th:text="*{name}"></li>
+        <li th:text="*{gender? 'Male':'Female'}"></li>
+        <li th:text="*{marks}"></li>
+        <li th:text="*{contact.phone}"></li>
+        <li th:text="*{contact.address}"></li>
+        <li th:text="*{contact.email}"></li>
+        <li th:each="el1 : *{subjects}" th:text="${el1}"></li>
+
+    </ul>
+</body>
+
+</html>
