@@ -2,28 +2,29 @@
     {
         "name": "Nguyen Van Kaito",
         "gender": true,
-        "marks": 8.3,
+        "marks": 9.9,
         "contact": {
             "email": "kaitokid@gmail.com",
             "phone": "0489569384"
         },
         "subjects": [
             "WEB205",
+            "COM108",
+            "COM108",
             "COM108"
         ]
     },
     {
         "name": "Tran Van Conan1",
         "gender": false,
-        "marks": 9.0,
+        "marks": 9.1,
         "contact": {
             "email": "conan@gmail.com",
             "phone": "0291869384"
         },
         "subjects": [
             "COMGA113",
-            "WEB223",
-            "COM440"
+            "WEB223"
         ]
     },
     {
@@ -35,9 +36,7 @@
             "phone": "0145729381"
         },
         "subjects": [
-            "WEB223",
-            "COMTAM213",
-            "COM140"
+            "WEB223"
         ]
     },
     {
