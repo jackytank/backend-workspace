@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns="https://www.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Data binding</h1>
+    <hr>
+    <form action="/student/save" method="post" th:object="${student}">
+      <div class="mb-2">
+        <input th:field="*{email}" type="text" class="form-control" placeholder="Email...">
+      </div>
+      <div class="mb-2">
+        <input th:field="*{fullname}" type="text" class="form-control" placeholder="Fullname...">
+      </div>
+      <div class="mb-2">
+        <input th:field="*{marks}" type="number" class="form-control" placeholder="Marks...">
+      </div>
+      <div class="mb-2">
+        <input th:field="*{gender}" type="radio" th:value="true"> Male
+        <input th:field="*{gender}" type="radio" th:value="false"> Female
+      </div>
+      <div class="mb-2">
+        <select th:field="*{country}" id="">
+          <option value="" disabled>Nationality?</option>
+          <option th:each="c : ${countries}" value="${c.key}">[(${c.value})]</option>
+        </select>
+        <hr>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+
+</html>

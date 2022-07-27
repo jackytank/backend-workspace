@@ -5,17 +5,5 @@
         <attribute name="2.2" value="jpa-no-op-library-provider"/>
       </node>
     </node>
-    <node name="user.library.provider">
-      <node name="last.used.libraries">
-        <node name="2.2">
-          <node name="MyDamnLibrary"/>
-        </node>
-      </node>
-    </node>
-  </facet>
-  <facet id="jst.jsf">
-    <node name="libprov">
-      <node name="last-provider-used"/>
-    </node>
   </facet>
 </root>

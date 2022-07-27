@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Email address</th>
+                <th>Fullname</th>
+                <th>Marks</th>
+                <th>Gender</th>
+                <th>Country</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <form>
+                <tr th:each="item : ${studentList}" th:object="${item.value}">
+                    <td th:text="*{email}"></td>
+                    <td th:text="*{fullname}"></td>
+                    <td th:text="*{marks}"></td>
+                    <td th:text="*{gender} ? 'Male':'Female'"></td>
+                    <td th:text="*{country}"></td>
+                    <td>
+                        <button th:formaction="@{|/student/edit/${item.key}|}" formmethod="post" class="btn btn-secondary">EDIT</button>
+                        <button th:formaction="@{|/student/delete/${item.key}|}" formmethod="post" class="btn btn-danger">DELETE</button>
+                    </td>
+                </tr>
+            </form>
+        </tbody>
+    </table>
+</body>
+
+</html>

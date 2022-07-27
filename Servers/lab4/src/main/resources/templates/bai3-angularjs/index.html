@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body ng-app="myapp" ng-controller="myctrl">
+    <div class="container w-50">
+        <h2>RESTful Consumer - AngularJS</h2>
+        <hr>
+        <form>
+            <div class="mb-2">
+                <input type="email" class="form-control" ng-model="form.email" placeholder="Email address?">
+            </div>
+            <div class="mb-2">
+                <input type="text" class="form-control" ng-model="form.fullname" placeholder="Fullname?">
+            </div>
+            <div class="mb-2">
+                <input type="text" class="form-control" ng-model="form.marks" placeholder="Average marks?">
+            </div>
+            <div class="mb-2">
+                <input type="radio" ng-model="form.gender" ng-value="true" id="gender"> Male
+                <input type="radio" ng-model="form.gender" ng-value="false" id="gender"> Female
+            </div>
+            <div class="mb-2">
+                <select ng-model="form.country">
+                    <option value="VN">Vietnam</option>
+                    <option value="US">US</option>
+                </select>
+            </div>
+            <button ng-click="create()" class="btn btn-success">CREATE</button>
+            <button ng-click="update()" class="btn btn-secondary">UPDATE</button>
+            <button ng-click="delete()" class="btn btn-danger">DELETE</button>
+            <button ng-click="reset()" class="btn btn-secondary">RESET</button>
+        </form>
+        <hr>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Email address</th>
+                    <th>Fullname</th>
+                    <th>Marks</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key,stu) in items">
+                    <td>{{stu.email}}</td>
+                    <td>{{stu.fullname}}</td>
+                    <td>{{stu.marks}}</td>
+                    <td>{{stu.gender?'Male':'Female'}}</td>
+                    <td>{{stu.country}}</td>
+                    <td>
+                        <button ng-click="edit(key)">Edit</button>
+                        <button ng-click="delete(key)">Del</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let host = 'https://poly-java-6-58f2f-default-rtdb.asia-southeast1.firebasedatabase.app/'
+        const app = angular.module("myapp", [])
+        app.controller("myctrl", function ($scope, $http) {
+            $scope.form = {}
+            $scope.items = {}
+            $scope.reset = function () {
+                $scope.form = { gender: true, country: "VN" }
+                $scope.key = null
+            }
+            $scope.load_all = function () {
+                var url = `${host}/students.json`
+                $http.get(url).then(resp => {
+                    $scope.items = resp.data
+                    console.log("Load all success!", resp);
+                }).catch(err => console.log(err))
+            }
+            $scope.edit = function (key) {
+                var url = `${host}/students/${key}.json`
+                $http.get(url).then(resp => {
+                    $scope.form = resp.data
+                    $scope.key = key
+                    console.log("Edit success!", resp);
+                }).catch(err => console.log(err))
+            }
+            $scope.create = function () {
+                var item = angular.copy($scope.form)
+                var url = `${host}/students.json`
+                $http.post(url, item).then(resp => {
+                    $scope.key = resp.data.name
+                    $scope.items[$scope.key] = item
+                    $scope.reset()
+                    console.log("Create success!", resp);
+                }).catch(err => console.log(err))
+
+
+            }
+            $scope.update = function () {
+                var item = angular.copy($scope.form)
+                var url = `${host}/students/${$scope.key}.json`
+                $http.put(url, item).then(resp => {
+                    $scope.items[$scope.key] = resp.data
+                    console.log("Update success!", resp);
+                }).catch(err => console.log(err))
+
+            }
+            $scope.delete = function (key) {
+                var url = `${host}/students/${$scope.key}.json`
+                $http.delete(url).then(resp => {
+                    delete $scope.items[key]
+                    console.log("Delete success!", resp);
+                }).catch(err => console.log(err))
+            }
+            $scope.load_all()
+            $scope.reset()
+        })
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+
+</html>

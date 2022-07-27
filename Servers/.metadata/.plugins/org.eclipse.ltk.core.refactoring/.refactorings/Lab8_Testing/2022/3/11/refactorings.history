@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move &apos;datafile.properties&apos; to &apos;Resources&apos;" description="Move &apos;datafile.properties&apos; to &apos;Resources&apos;" destination="Resources" element1="datafile.properties" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1647056293095" updateReferences="true"/>
-</session>
