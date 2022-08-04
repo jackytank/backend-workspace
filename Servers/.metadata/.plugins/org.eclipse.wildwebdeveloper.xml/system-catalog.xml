@@ -744,4 +744,5 @@
 <uri name="http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd" uri="file:///D:/eclipse-jee-2022-06-R-win32-x86_64/eclipse/configuration/org.eclipse.osgi/1254/0/.cp/catalog/web-facelettaglibrary_2_0.xsd"/>
 <uri name="http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" uri="file:///D:/eclipse-jee-2022-06-R-win32-x86_64/eclipse/configuration/org.eclipse.osgi/1254/0/.cp/catalog/web-facelettaglibrary_2_0.xsd"/>
 <public publicId="-//OASIS//DTD DocBook XML V4.1.2//EN" uri="file:///D:/eclipse-jee-2022-06-R-win32-x86_64/eclipse/plugins/org.jboss.tools.vpe.docbook_3.9.0.v20210316-0802/dtds/docbookx-4.1.2.dtd"/>
+<public publicId="-//LOG4J//DTD LOG4J//EN" uri="file:///D:/eclipse-jee-2022-06-R-win32-x86_64/eclipse/configuration/org.eclipse.osgi/1357/0/.cp/dtd/log4j-1.2.dtd"/>
 </catalog>

@@ -21,7 +21,7 @@ public class AuthorityRestController {
     AccountRepository accountRepo;
 
     @GetMapping("/rest/authorities")
-    public Map<String, Object> getEmpRoles() {
+    public Map<String, Object> getAuthorities() {
         Map<String, Object> data = new HashMap<>();
         data.put("authorities", authorityRepo.findAll());
         data.put("roles", roleRepo.findAll());
@@ -40,7 +40,6 @@ public class AuthorityRestController {
     public void delete(@PathVariable("id") Integer id) {
         authorityRepo.deleteById(id);
     }
-
 
 
 }

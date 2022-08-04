@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/security/signin}">Sign in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/security/logoff}">Log off</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/order/list}">Your orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/home/index}">Administrators</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-end">
+                <li><a href="#" class="text-white">Welcome you</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

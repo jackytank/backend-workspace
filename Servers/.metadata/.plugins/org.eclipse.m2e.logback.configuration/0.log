@@ -20,3 +20,12 @@
 2022-07-24 17:29:53,858 [Worker-6: Importing Maven projects] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\balis\Desktop\my-eclipse-workspace\Servers\lab5\src\test\resources
 2022-07-24 17:29:56,211 [Worker-6: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 31 sec
 2022-07-24 17:31:04,195 [Worker-3: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-07-31 17:57:30,636 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2022-07-31 18:04:04,173 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-07-31 18:05:59,170 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-07-31 18:05:59,172 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-07-31 18:05:59,179 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-07-31 18:05:59,203 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-07-31 18:05:59,214 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-07-31 18:05:59,214 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-07-31 18:05:59,214 [Worker-9: Launching lab5 - Lab5Application] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\balis\Desktop\my-eclipse-workspace\Servers\lab5\src\test\resources

@@ -1,40 +1,39 @@
 package com.edu.lab7.service;
 
-import com.edu.lab7.entity.Account;
-import com.edu.lab7.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Collectors;
+import com.edu.lab7.entity.Account;
+import com.edu.lab7.model.Provider;
+import com.edu.lab7.repository.AccountRepository;
 
 @Service
-public class UserService implements UserDetailsService {
+@Transactional
+public class UserService {
     @Autowired
-    AccountRepository accountRepo;
+    private AccountRepository repo;
 
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            Account account = accountRepo.findById(username).get();
-            //tao UserDetails tu Account
-            String password = account.getPassword();
-            String[] roles = account.getAuthorities().stream()
-                    .map(authority -> authority.getRole().getId())
-                    .collect(Collectors.toList()).toArray(new String[0]);
-            return User.withUsername(username)
-                    .password(encoder.encode(password))
-                    .roles(roles)
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void processOAuthPostLogin(String username, String email, String image, String oauth2ClientName) {
+        Account existAcc = repo.findByEmail(email);
+        if (existAcc == null) {
+            Account newAcc = new Account();
+            Provider provider = Provider.valueOf(oauth2ClientName.toUpperCase());
+            newAcc.setUser_name(username);
+            newAcc.setEmail(email);
+            newAcc.setProvider(provider);
+            newAcc.setPhoto(image);
+            repo.save(newAcc);
         }
+    }
+
+    public void updateAuthenticationTypeOAuth(String username, String oauth2ClientName) {
+        Provider provider = Provider.valueOf(oauth2ClientName.toUpperCase());
+        repo.updateAuthenticationTypeOAuth(username, provider);
+    }
+
+    public void updateAuthenticationTypeDB(String username, String oauth2ClientName) {
+        Provider provider = Provider.valueOf(oauth2ClientName.toUpperCase());
+        repo.updateAuthenticationTypeDB(username, provider);
     }
 }
