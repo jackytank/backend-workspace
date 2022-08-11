@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::form})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form th:action="@{/security/login}" method="post">
+    <div class="card">
+        <h3 class="text-danger">[(${message})]</h3>
+        <div class="card-header">
+            SHOPPING CART LOGIN
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Username...">
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password...">
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" name="remember-me"> Remember me?
+            </div>
+            <button type="submit">LOGIN</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

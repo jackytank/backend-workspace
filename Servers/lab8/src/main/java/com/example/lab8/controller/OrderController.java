@@ -1,5 +1,6 @@
 package com.example.lab8.controller;
 
+import com.example.lab8.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class OrderController {
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping("/order/checkout")
     public String checkout() {
@@ -17,12 +20,15 @@ public class OrderController {
     }
 
     @RequestMapping("/order/list")
-    public String list() {
+    public String list(Model model, HttpServletRequest request){
+        String username = request.getRemoteUser();
+        model.addAttribute("orders",orderService.findByUsername(username));
         return "order/list";
     }
 
     @RequestMapping("/order/detail/{id}")
-    public String detail() {
+    public String detail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("order", orderService.findById(id));
         return "order/detail";
     }
 }

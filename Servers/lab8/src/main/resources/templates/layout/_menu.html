@@ -1,3 +1,5 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-2">
     <div class="container-fluid">
         <a class="navbar-brand" href="javascript:void(0)">Logo</a>
@@ -6,24 +8,29 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar1">
             <ul class="navbar-nav me-auto">
+                <div type="hidden" id="login-username">[[${#request.remoteUser}]]</div>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/security/signin}">Sign in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/security/logoff}">Log off</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/order/list}">Your orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/home/index}">Administrators</a>
-                </li>
+                <th:block th:if="${#request.remoteUser}">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/security/logoff}">Log off</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/order/list}">Your orders</a>
+                    </li>
+                    <li class="nav-item" th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAFF')}">
+                        <a class="nav-link" th:href="@{/admin/home/index}">Administrators</a>
+                    </li>
+                </th:block>
+                <th:block th:unless="${#request.remoteUser}">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/security/login/form}">Sign in</a>
+                    </li>
+                </th:block>
             </ul>
-            <ul class="navbar-nav navbar-end">
-                <li><a href="#" class="text-white">Welcome you</a></li>
+            <ul class="navbar-nav navbar-end" th:if="${#request.remoteUser}">
+                <li><a href="#" class="text-white">Welcome [[${#request.remoteUser}]]</a></li>
             </ul>
         </div>
     </div>
