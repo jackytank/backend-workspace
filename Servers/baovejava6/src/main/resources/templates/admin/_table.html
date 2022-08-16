@@ -1,0 +1,30 @@
+<table class="table">
+    <input ng-change="search(searchInput)" ng-model="searchInput" type="text" class="form-control" placeholder="Search...">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>password</th>
+            <th>fullname</th>
+            <th>email</th>
+            <th>role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in items">
+            <td>{{$index+1}}</td>
+            <td>{{user.id}}</td>
+            <td>{{user.password | limitTo: 10 }}{{ user.password.length > 10 ? '...' : ''}}</td>
+            <td>{{user.fullname}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>
+                <div class="btn-group">
+                    <button ng-click="edit(user.id)" class="btn btn-secondary">Edit</button>
+                    <button ng-click="delete(stu.id)" class="btn btn-danger">Delete</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
