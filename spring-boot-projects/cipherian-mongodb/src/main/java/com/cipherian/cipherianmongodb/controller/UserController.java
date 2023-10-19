@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getOne(@PathVariable(name = "id") String id){
-        
+        return ResponseEntity.ok(null);
         // return ResponseEntity.ok(userRepository.findOne(id));
     }
 
