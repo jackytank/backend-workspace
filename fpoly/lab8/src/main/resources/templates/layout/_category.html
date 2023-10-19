@@ -1,8 +1,0 @@
-<div class="card mb-2">
-    <div class="card-header">
-        <b>Danh Mục</b>
-    </div>
-    <div class="list-group  ">
-        <a th:each="ca : ${cates}" th:href="@{|/product/list?cid=${ca.id}|}" class="list-group-item list-group-item-action" th:text="${ca.name}"></a>
-    </div>
-</div>
