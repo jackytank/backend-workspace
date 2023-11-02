@@ -26,6 +26,16 @@ public class Learning {
     }
 }
 
+class LearnDSA {
+    public static void main(String[] args) {
+        
+    }
+
+    static void selectionSort() {
+        
+    }
+}
+
 class LearnStream {
     public static void main(String[] args) {
         test6();
