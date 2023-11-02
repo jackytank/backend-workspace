@@ -28,11 +28,27 @@ public class Learning {
 
 class LearnDSA {
     public static void main(String[] args) {
-        
+        selectionSort();
     }
 
     static void selectionSort() {
-        
+        Consumer<int[]> selSort = arr -> {
+            System.out.println("arr: " + Arrays.toString(arr));
+            int size = arr.length;
+            for (int step = 0; step < arr.length; step++) {
+                int minIndex = step;
+                for (int i = step + 1; i < arr.length; i++) {
+                    if (arr[i] < arr[minIndex]) {
+                        minIndex = i;
+                    }
+                }
+                int tmp = arr[step];
+                arr[step] = arr[minIndex];
+                arr[minIndex] = tmp;
+            }
+            System.out.println("after: " + Arrays.toString(arr));
+        };
+        selSort.accept(new int[] { 5, 4, 3, 2, 1 });
     }
 }
 
