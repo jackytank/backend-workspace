@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.repository.BookRepository;
+import com.example.demo.book.BookRepository;
 
 @Component
 public class AppRunner implements CommandLineRunner {

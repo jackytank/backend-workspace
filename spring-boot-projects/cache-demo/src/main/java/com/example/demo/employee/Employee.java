@@ -1,24 +1,27 @@
-package com.example.demo.entity;
+package com.example.demo.employee;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "books")
-public class Book {
-
+@Table(name = "employee")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String isbn;
-    private String title;
+    private String name;
+    private String email;
+    private String jobTitle;
+    private String phone;
+    private String imageUrl;
+    private String employeeCode;
 }

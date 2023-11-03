@@ -1,9 +1,7 @@
-package com.example.demo.repository;
+package com.example.demo.book;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-
-import com.example.demo.entity.Book;
 
 @Component
 public class SimpleBookRepository implements BookRepository {

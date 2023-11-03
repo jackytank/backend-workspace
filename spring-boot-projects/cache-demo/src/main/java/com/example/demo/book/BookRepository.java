@@ -1,8 +1,6 @@
-package com.example.demo.repository;
+package com.example.demo.book;
 
 import org.springframework.stereotype.Repository;
-
-import com.example.demo.entity.Book;
 
 @Repository
 public interface BookRepository {
