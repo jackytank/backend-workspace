@@ -6,17 +6,14 @@ import java.util.concurrent.atomic.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
+import org.openjdk.jmh.annotations.*;
+
+import lombok.*;
 
 import static java.util.Map.Entry.*;
 import static java.util.stream.Collectors.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.*;
 import java.text.*;
 
@@ -27,29 +24,23 @@ public class Learning {
 }
 
 class LearnDSA {
-    public static void main(String[] args) {
-        selectionSort();
+    public static void main(String[] args) throws IOException {
     }
 
-    static void selectionSort() {
-        Consumer<int[]> selSort = arr -> {
-            System.out.println("arr: " + Arrays.toString(arr));
-            int size = arr.length;
-            for (int step = 0; step < arr.length; step++) {
-                int minIndex = step;
-                for (int i = step + 1; i < arr.length; i++) {
-                    if (arr[i] < arr[minIndex]) {
-                        minIndex = i;
-                    }
+    public void selSort(int[] arr) {
+        for (int step = 0; step < arr.length; step++) {
+            int minIndex = step;
+            for (int i = step + 1; i < arr.length; i++) {
+                if (arr[i] < arr[minIndex]) {
+                    minIndex = i;
                 }
-                int tmp = arr[step];
-                arr[step] = arr[minIndex];
-                arr[minIndex] = tmp;
             }
-            System.out.println("after: " + Arrays.toString(arr));
-        };
-        selSort.accept(new int[] { 5, 4, 3, 2, 1 });
-    }
+            int tmp = arr[step];
+            arr[step] = arr[minIndex];
+            arr[minIndex] = tmp;
+        }
+    };
+
 }
 
 class LearnStream {
