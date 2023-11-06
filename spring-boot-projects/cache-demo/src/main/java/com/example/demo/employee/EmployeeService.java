@@ -63,25 +63,20 @@ public class EmployeeService {
         if (employeeRepository.existsByPhone(employee.map(EmployeeModel::getPhone).orElse(null))) {
             throw new RuntimeException("Phone already exists");
         }
-        EmployeeModel mockFaker = EmployeeModel.builder()
-                .employeeCode(faker.number().digits(5))
-                .jobTitle(faker.job().title())
-                .name(faker.name().fullName())
-                .phone(faker.phoneNumber().phoneNumber())
-                .imageUrl(faker.internet().image())
-                .email(faker.internet().emailAddress())
-                .build();
+        EmployeeModel mockFaker = randEmpModel();
         Employee saved = employeeRepository.save(employeeMapper.toEntity(mockFaker));
         return employeeMapper.toModel(saved);
     }
 
     @Caching(put = {
-            @CachePut(value = "employees", key = "#id.isPresent() ? #id.get() : null")
+    }, cacheable = {
+            @Cacheable(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
     })
     public EmployeeModel getEmployee(Optional<Long> id) {
+        log.info("Fetching employee with id: {}", id);
         // get employee by id
-        if (employeeRepository.existsById(id.orElse(null))) {
-            return employeeMapper.toModel(employeeRepository.findById(id.orElse(null)).orElseThrow());
+        if (employeeRepository.existsById(id.orElse(-1L))) {
+            return employeeMapper.toModel(employeeRepository.findById(id.orElse(-1L)).orElseThrow());
         }
         // get last employee in the database by id desc
         if (employeeRepository.findFirstByOrderByIdDesc().isPresent()) {
@@ -94,7 +89,8 @@ public class EmployeeService {
     public void deleteEmployee(Optional<Long> id) {
         log.info("Deleting employee with id: {}", id);
         // check if employee exists
-        if (employeeRepository.existsById(id.orElse(null))) {
+        var find = employeeRepository.findById(id.orElse(null));
+        if (find.isEmpty()) {
             throw new RuntimeException("Employee does not exist");
         }
         // delete the last employee in the database id desc by id
@@ -104,21 +100,57 @@ public class EmployeeService {
 
     public void populateEmployees() {
         // starting to populate 5000 employees using javafaker
-
         List<Employee> employeeList = new ArrayList<>();
         for (int i = 0; i < 10_000; i++) {
-            Employee employee = Employee.builder()
-                    .employeeCode(faker.number().digits(5))
-                    .jobTitle(faker.job().title())
-                    .name(faker.name().fullName())
-                    .phone(faker.phoneNumber().phoneNumber())
-                    .imageUrl(faker.internet().image())
-                    .email(faker.internet().emailAddress())
-                    .build();
+            Employee employee = employeeMapper.toEntity(randEmpModel());
             employeeList.add(employee);
             System.out.println("Employee " + i + " added");
         }
         employeeRepository.saveAll(employeeList);
+    }
+
+    @Caching(
+        put = {
+            @CachePut(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
+        }
+    )
+    public EmployeeModel updateEmployee(Optional<Long> id, Optional<EmployeeModel> employee) {
+        log.info("Updating employee with id: {}", id);
+        // check if employee exists
+        if (!employeeRepository.existsById(id.orElse(null))) {
+            throw new RuntimeException("Employee does not exist");
+        }
+        // check if employee code already exists
+        if (employeeRepository.existsByEmployeeCode(employee.map(EmployeeModel::getEmployeeCode).orElse(null))) {
+            throw new RuntimeException("Employee code already exists");
+        }
+        // check if email already exists
+        if (employeeRepository.existsByEmail(employee.map(EmployeeModel::getEmail).orElse(null))) {
+            throw new RuntimeException("Email already exists");
+        }
+        // check if phone already exists
+        if (employeeRepository.existsByPhone(employee.map(EmployeeModel::getPhone).orElse(null))) {
+            throw new RuntimeException("Phone already exists");
+        }
+        if (employee.isEmpty()) {
+            // use javafaker to generate random data
+            EmployeeModel mockFaker = randEmpModel();
+            employee = Optional.of(mockFaker);
+        }
+        Employee saved = employeeRepository.save(employeeMapper.toEntity(employee.orElseThrow()));
+        return employeeMapper.toModel(saved);
+    }
+
+    private EmployeeModel randEmpModel() {
+        // use javafaker to generate random data
+        return EmployeeModel.builder()
+                .employeeCode(faker.number().digits(5))
+                .jobTitle(faker.job().title())
+                .name(faker.name().fullName())
+                .phone(faker.phoneNumber().phoneNumber())
+                .imageUrl(faker.internet().image())
+                .email(faker.internet().emailAddress())
+                .build();
     }
 
 }

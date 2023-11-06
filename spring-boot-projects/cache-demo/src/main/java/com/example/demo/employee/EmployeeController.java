@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +32,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getEmployee(@RequestParam(required = false) Optional<Long> id) {
+    public ResponseEntity<?> getEmployee(@PathVariable(required = false) Optional<Long> id) {
         return ResponseEntity.ok(employeeService.getEmployee(id));
     }
 
@@ -39,8 +41,15 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.createEmployee(employee));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEmployee(
+            @PathVariable(required = false) Optional<Long> id,
+            @RequestBody(required = false) Optional<EmployeeModel> employee) {
+        return ResponseEntity.ok(employeeService.updateEmployee(id, employee));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEmployee(@RequestParam(required = false) Optional<Long> id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable(required = false) Optional<Long> id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().build();
     }
