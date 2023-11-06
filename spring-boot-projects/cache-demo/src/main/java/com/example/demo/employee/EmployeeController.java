@@ -1,5 +1,7 @@
 package com.example.demo.employee;
 
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,24 +22,27 @@ public class EmployeeController {
 
     @GetMapping("")
     public ResponseEntity<?> getEmployees(
-        @RequestParam(defaultValue = "0") Integer no,
-        @RequestParam(defaultValue = "10") Integer limit,
-        @RequestParam(defaultValue = "id") String sortBy,
-        @RequestParam(required = false, defaultValue = "true") Boolean desc
-    ) {
+            @RequestParam(defaultValue = "0") Integer no,
+            @RequestParam(defaultValue = "10") Integer limit,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(required = false, defaultValue = "true") Boolean desc) {
         return ResponseEntity.ok(employeeService.getAllEmployees(no, limit, sortBy, desc));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEmployee(@RequestParam(required = false) Optional<Long> id) {
+        return ResponseEntity.ok(employeeService.getEmployee(id));
+    }
+
     @PostMapping("")
-    public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<?> createEmployee(@RequestBody(required = false) Optional<EmployeeModel> employee) {
         return ResponseEntity.ok(employeeService.createEmployee(employee));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEmployee(@RequestParam Long id) {
+    public ResponseEntity<?> deleteEmployee(@RequestParam(required = false) Optional<Long> id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().build();
     }
-    
-    
+
 }
