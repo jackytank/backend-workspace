@@ -34,7 +34,7 @@ public class EmployeeService {
 
     private static Faker faker = new Faker();
 
-    @Cacheable(value = "employees", key = "'employeeSearch'")
+    // @Cacheable(value = "employees", key = "'employeeSearch'")
     public Page<EmployeeModel> getAllEmployees(Integer no, Integer limit, String sortBy, Boolean desc) {
         log.info("Fetching employees from database, count time: {}", count.incrementAndGet());
         Sort sort = Sort.by(Boolean.TRUE.equals(desc) ? Sort.Direction.DESC : Sort.Direction.ASC, sortBy);
@@ -48,7 +48,7 @@ public class EmployeeService {
     private final String condition = "#employee.isPresent() && #employee.map(T(com.example.demo.employee.EmployeeModel).getEmployeeCode).isPresent()";
     private final String key = "#employee.map(T(com.example.demo.employee.EmployeeModel).getEmployeeCode).orElse(null)";
 
-    @CacheEvict(value = "employees", allEntries = true)
+    // @CacheEvict(value = "employees", allEntries = true)
     public EmployeeModel createEmployee(Optional<EmployeeModel> employee) {
         log.info("Creating employee: {}", employee);
         // check if employee code already exists
@@ -68,10 +68,10 @@ public class EmployeeService {
         return employeeMapper.toModel(saved);
     }
 
-    @Caching(put = {
-    }, cacheable = {
-            @Cacheable(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
-    })
+    // @Caching(put = {
+    // }, cacheable = {
+    //         @Cacheable(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
+    // })
     public EmployeeModel getEmployee(Optional<Long> id) {
         log.info("Fetching employee with id: {}", id);
         // get employee by id
@@ -85,7 +85,7 @@ public class EmployeeService {
         throw new RuntimeException("Employee does not exist");
     }
 
-    @CacheEvict(value = "employees", allEntries = true)
+    // @CacheEvict(value = "employees", allEntries = true)
     public void deleteEmployee(Optional<Long> id) {
         log.info("Deleting employee with id: {}", id);
         // check if employee exists
@@ -109,11 +109,11 @@ public class EmployeeService {
         employeeRepository.saveAll(employeeList);
     }
 
-    @Caching(
-        put = {
-            @CachePut(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
-        }
-    )
+    // @Caching(
+    //     put = {
+    //         @CachePut(value = "employees", key = "#id.isPresent() ? 'employee:' + #id.get() : null")
+    //     }
+    // )
     public EmployeeModel updateEmployee(Optional<Long> id, Optional<EmployeeModel> employee) {
         log.info("Updating employee with id: {}", id);
         // check if employee exists
