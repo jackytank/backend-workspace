@@ -4,16 +4,45 @@ import java.util.*;
 
 public class Algo {
     public static void main(String[] args) {
-        System.out.println(isPalindrome("A man, a plan, a canal: Panama")); // true
-        System.out.println(isPalindrome("race a car")); // false
-        System.out.println(isPalindrome("")); // false
-        System.out.println(isPalindrome(" ")); // true
-        System.out.println(isPalindrome("A")); // true
-        System.out.println(isPalindrome("Aa")); // true
-        System.out.println(isPalindrome("Aba")); // true
-        System.out.println(isPalindrome("Abba")); // true
-        System.out.println(isPalindrome("Madam")); // true
-        System.out.println(isPalindrome("Was it a car or a cat I saw?")); // true
+        System.out.println(Arrays.toString(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3)));
+    }
+
+    // https://app.codility.com/c/run/training7RDQMW-C34/
+    static int[] cyclicRotation(int[] A, int K) {
+        // A = [3, 8, 9, 7, 6], K = 1 ==> [6, 3, 8, 9, 7]
+        // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
+        // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
+        if (K % A.length == 0) return A;
+        Deque<Integer> deque = new ArrayDeque<>();
+        if (K > A.length) {
+            K = K - A.length;
+        }
+        for (int n : A) {
+            deque.addLast(n);
+        }
+        for (int i = 0; i < K; i++) {
+            Integer first = deque.removeLast();
+            deque.addFirst(first);
+        }
+        return deque.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    // https://app.codility.com/c/run/trainingDK5RXE-XG3/
+    public static int binaryGap(int N) {
+        // 10000010001
+        // [1..2,147,483,647]
+        String bin = Integer.toString(N, 2);
+        int res = 0;
+        int tmpRes = 0;
+        for (int i = 0; i < bin.length(); i++) {
+            if (bin.charAt(i) == '0') {
+                tmpRes++;
+            } else {
+                res = Math.max(res, tmpRes);
+                tmpRes = 0;
+            }
+        }
+        return res;
     }
 
     // https://leetcode.com/problems/longest-consecutive-sequence/
@@ -186,8 +215,7 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x))
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -368,9 +396,9 @@ public class Algo {
                     num = 1000;
                     break;
             }
-            if(num < prev){
+            if (num < prev) {
                 res -= num;
-            }else{
+            } else {
                 res += num;
             }
             prev = num;
@@ -431,7 +459,7 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[] { map.get(target - nums[i]), i };
+                return new int[]{map.get(target - nums[i]), i};
             }
             map.put(nums[i], i);
         }
