@@ -4,15 +4,39 @@ import java.util.*;
 
 public class Algo {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3)));
+        var shit = Utils.genRandDupArr(201);
+        System.out.println(oddOccurrencesInArray(shit));
     }
 
-    // https://app.codility.com/c/run/training7RDQMW-C34/
+    static int oddOccurrencesInArray(int[] A) {
+        // [9 ,3, 9, 3, 9, 7, 9] ==> 7
+        int len = A.length;
+        int res = 0;
+        if (len % 2 == 0 || len < 1 || len > 1000000)
+            return res;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < A.length; ++i) {
+            if (map.containsKey(A[i])) {
+                Integer cnt = map.get(A[i]);
+                map.put(A[i], ++cnt);
+            } else {
+                map.put(A[i], 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+        return res;
+    }
+
     static int[] cyclicRotation(int[] A, int K) {
         // A = [3, 8, 9, 7, 6], K = 1 ==> [6, 3, 8, 9, 7]
         // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
         // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
-        if (K % A.length == 0) return A;
+        if (K % A.length == 0)
+            return A;
         Deque<Integer> deque = new ArrayDeque<>();
         if (K > A.length) {
             K = K - A.length;
@@ -27,7 +51,6 @@ public class Algo {
         return deque.stream().mapToInt(Integer::intValue).toArray();
     }
 
-    // https://app.codility.com/c/run/trainingDK5RXE-XG3/
     public static int binaryGap(int N) {
         // 10000010001
         // [1..2,147,483,647]
@@ -55,7 +78,8 @@ public class Algo {
             int count = 0;
             if (map.containsKey(next))
                 continue;
-            while (map.containsKey(num - ++count));
+            while (map.containsKey(num - ++count))
+                ;
             max = Math.max(max, count);
         }
         return max;
@@ -215,7 +239,8 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x))
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -459,7 +484,7 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[]{map.get(target - nums[i]), i};
+                return new int[] { map.get(target - nums[i]), i };
             }
             map.put(nums[i], i);
         }
