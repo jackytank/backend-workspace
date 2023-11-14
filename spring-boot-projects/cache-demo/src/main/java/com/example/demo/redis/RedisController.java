@@ -2,7 +2,6 @@ package com.example.demo.redis;
 
 import java.util.Map;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.employee.EmployeeModel;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/redis")
 public class RedisController {
 
-    private final RedisTemplate<String, Page<EmployeeModel>> template;
+    private final RedisTemplate<String, Object> template;
 
     private static final String STRING_KEY_PREFIX = "employees:strings:";
 
