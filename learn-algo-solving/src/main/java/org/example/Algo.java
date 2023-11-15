@@ -1,16 +1,41 @@
 package org.example;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
     public static void main(String[] args) {
-        var shit = new int[]{9, 3, 9, 3, 9, 7, 9};
-        var shits = new int[]{2, 3, 1, 5};
-        // System.out.println(permMissingElem(shits));
-        // System.out.println(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3));
-        System.out.println(missingInteger(new int[]{1, 3, 6, 4, 1, 2})); // 5
-        System.out.println(missingInteger(new int[]{1, 2, 3})); // 4
-        System.out.println(missingInteger(new int[]{-1, -3})); // 1
+    }
+
+    // https://leetcode.com/problems/search-insert-position/description/?envType=study-plan-v2&envId=top-interview-150
+    static int searchInsert(int[] nums, int target) {
+        // using binary search
+        int l = 0;
+        int r = nums.length - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] == target) return m;
+            else if (nums[m] > target) r = m - 1;
+            else l = m + 1;
+        }
+        return l;
+    }
+
+    // https://leetcode.com/problems/is-subsequence/description/
+    static boolean isSubsequenceTwoPointer(String s, String t) {
+        // s = "abc"
+        // t = "ahbgdc"
+        int tCnt = 0;
+        int sCnt = 0;
+        while (tCnt < t.length() && sCnt < s.length()) {
+            char charT = t.charAt(tCnt);
+            char charS = s.charAt(sCnt);
+            if (charT == charS) {
+                sCnt++;
+            }
+            tCnt++;
+        }
+        return s.length() == sCnt;
     }
 
     static int missingInteger(int[] A) {
@@ -208,15 +233,13 @@ public class Algo {
     public static boolean isSubsequence(String s, String t) {
         if (s.isEmpty())
             return true;
-        var stack = new Stack<Character>();
+        Deque<Character> stack = new ConcurrentLinkedDeque<>();
         for (int i = s.length() - 1; i >= 0; i--) {
             stack.push(s.charAt(i));
         }
         for (int i = 0; i < t.length(); i++) {
-            if (!stack.isEmpty()) {
-                if (stack.peek() == t.charAt(i)) {
-                    stack.pop();
-                }
+            if (!stack.isEmpty() && (stack.peek() == t.charAt(i))) {
+                stack.pop();
             }
         }
         return stack.isEmpty();
