@@ -8,7 +8,23 @@ public class Algo {
         var shits = new int[]{2, 3, 1, 5};
         // System.out.println(permMissingElem(shits));
         // System.out.println(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3));
-        System.out.println(frogJmp(10, 85, 30));
+        System.out.println(missingInteger(new int[]{1, 3, 6, 4, 1, 2})); // 5
+        System.out.println(missingInteger(new int[]{1, 2, 3})); // 4
+        System.out.println(missingInteger(new int[]{-1, -3})); // 1
+    }
+
+    static int missingInteger(int[] A) {
+        // [1, 3, 6, 4, 1, 2] ==> 5
+        // [1, 2, 3] ==> 4
+        // [-1, -3] ==> 1
+        Set<Integer> set = new LinkedHashSet<>();
+        for (int e : A) {
+            set.add(e);
+        }
+        for (int i = 1; i <= A.length; i++) {
+            if (!set.contains(i)) return i;
+        }
+        return A.length + 1;
     }
 
     static int frogJmp(int X, int Y, int D) {
