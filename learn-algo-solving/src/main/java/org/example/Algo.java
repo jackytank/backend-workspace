@@ -4,8 +4,29 @@ import java.util.*;
 
 public class Algo {
     public static void main(String[] args) {
-        var shit = Utils.genRandDupArr(201);
-        System.out.println(oddOccurrencesInArray(shit));
+        var shit = new int[]{9, 3, 9, 3, 9, 7, 9};
+        var shits = new int[]{2, 3, 1, 5};
+        System.out.println(permMissingElem(shits));
+    }
+
+    static int permMissingElem(int[] A) {
+        int len = A.length;
+        if (len != 2) {
+            len = Arrays.stream(A).boxed().max(Integer::compare).orElse(0);
+        }
+        int sumAll = len * (len + 1) / 2;
+        for (int i : A) {
+            sumAll -= i;
+        }
+        return sumAll;
+    }
+
+    static int oddOccurrencesInArrayXOR(int[] A) {
+        int num = 0;
+        for (int i = 0; i < A.length; i++) {
+            num ^= A[i];
+        }
+        return num;
     }
 
     static int oddOccurrencesInArray(int[] A) {
@@ -17,14 +38,15 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < A.length; ++i) {
             if (map.containsKey(A[i])) {
-                Integer cnt = map.get(A[i]);
-                map.put(A[i], ++cnt);
+                int cnt = map.get(A[i]);
+                cnt++;
+                map.put(A[i], cnt);
             } else {
                 map.put(A[i], 1);
             }
         }
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == 1) {
+            if (map.get(entry.getKey()) % 2 != 0) {
                 return entry.getKey();
             }
         }
@@ -239,8 +261,7 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x))
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -316,18 +337,24 @@ public class Algo {
 
     // https://leetcode.com/problems/missing-number/
     public static int missingNumber(int[] nums) {
-        int sum = 0;
-        int sumExpect = 0;
-        boolean existNum_0 = false;
-        for (int i = 0; i < nums.length; i++) {
-            sumExpect += i + 1;
-            sum += nums[i];
-            if (nums[i] == 0)
-                existNum_0 = true;
+        // int sum = 0;
+        // int sumExpect = 0;
+        // boolean existNum_0 = false;
+        // for (int i = 0; i < nums.length; i++) {
+        //     sumExpect += i + 1;
+        //     sum += nums[i];
+        //     if (nums[i] == 0)
+        //         existNum_0 = true;
+        // }
+        // if (!existNum_0)
+        //     return 0;
+        // return sumExpect - sum;
+        int len = nums.length;
+        int sumAll = len * (len + 1) / 2;
+        for (int i : nums) {
+            sumAll -= i;
         }
-        if (!existNum_0)
-            return 0;
-        return sumExpect - sum;
+        return sumAll;
     }
 
     // https://leetcode.com/problems/binary-search/
@@ -484,7 +511,7 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[] { map.get(target - nums[i]), i };
+                return new int[]{map.get(target - nums[i]), i};
             }
             map.put(nums[i], i);
         }
