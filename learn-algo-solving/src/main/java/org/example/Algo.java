@@ -7,18 +7,17 @@ public class Algo {
         var shit = new int[]{9, 3, 9, 3, 9, 7, 9};
         var shits = new int[]{2, 3, 1, 5};
         System.out.println(permMissingElem(shits));
+        System.out.println(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3));
     }
 
     static int permMissingElem(int[] A) {
-        int len = A.length;
-        if (len != 2) {
-            len = Arrays.stream(A).boxed().max(Integer::compare).orElse(0);
-        }
-        int sumAll = len * (len + 1) / 2;
+        int len = A.length + 1;
+        long sumAll = len * (len + 1L) / 2;
+        long sum = 0L;
         for (int i : A) {
-            sumAll -= i;
+            sum += i;
         }
-        return sumAll;
+        return (int) (sumAll - sum);
     }
 
     static int oddOccurrencesInArrayXOR(int[] A) {
@@ -57,20 +56,27 @@ public class Algo {
         // A = [3, 8, 9, 7, 6], K = 1 ==> [6, 3, 8, 9, 7]
         // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
         // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
-        if (K % A.length == 0)
-            return A;
-        Deque<Integer> deque = new ArrayDeque<>();
-        if (K > A.length) {
-            K = K - A.length;
+        // if (K % A.length == 0)
+        //     return A;
+        // Deque<Integer> deque = new ArrayDeque<>();
+        // if (K > A.length) {
+        //     K = K - A.length;
+        // }
+        // for (int n : A) {
+        //     deque.addLast(n);
+        // }
+        // for (int i = 0; i < K; i++) {
+        //     Integer first = deque.removeLast();
+        //     deque.addFirst(first);
+        // }
+        // return deque.stream().mapToInt(Integer::intValue).toArray();
+        int[] res = new int[A.length];
+        for (int i = 0; i < A.length; i++) {
+            // check The Caesar Cipher
+            int newPos = (i + K) % A.length;
+            res[newPos] = A[i];
         }
-        for (int n : A) {
-            deque.addLast(n);
-        }
-        for (int i = 0; i < K; i++) {
-            Integer first = deque.removeLast();
-            deque.addFirst(first);
-        }
-        return deque.stream().mapToInt(Integer::intValue).toArray();
+        return res;
     }
 
     public static int binaryGap(int N) {
