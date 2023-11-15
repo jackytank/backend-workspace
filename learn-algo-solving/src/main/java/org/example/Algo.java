@@ -6,8 +6,14 @@ public class Algo {
     public static void main(String[] args) {
         var shit = new int[]{9, 3, 9, 3, 9, 7, 9};
         var shits = new int[]{2, 3, 1, 5};
-        System.out.println(permMissingElem(shits));
-        System.out.println(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3));
+        // System.out.println(permMissingElem(shits));
+        // System.out.println(cyclicRotation(new int[]{3, 8, 9, 7, 6}, 3));
+        System.out.println(frogJmp(10, 85, 30));
+    }
+
+    static int frogJmp(int X, int Y, int D) {
+        double res = Math.ceil((double) (Y - X) / D);
+        return (int) res;
     }
 
     static int permMissingElem(int[] A) {
