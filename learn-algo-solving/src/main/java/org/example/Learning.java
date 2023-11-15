@@ -26,17 +26,10 @@ class LearnDSA {
     public static void main(String[] args) throws IOException {
     }
 
-    public void selSort(int[] arr) {
-        for (int step = 0; step < arr.length; step++) {
-            int minIndex = step;
-            for (int i = step + 1; i < arr.length; i++) {
-                if (arr[i] < arr[minIndex]) {
-                    minIndex = i;
-                }
-            }
-            int tmp = arr[step];
-            arr[step] = arr[minIndex];
-            arr[minIndex] = tmp;
+    public void selectionSort(int[] arr) {
+        int len = arr.length;
+        for (int i = 0; i < arr.length; i++) {
+            
         }
     };
 
