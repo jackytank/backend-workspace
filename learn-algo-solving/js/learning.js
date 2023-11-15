@@ -1,6 +1,17 @@
 //@ts-check
 import { users } from "./utils";
 
+/**
+ * 
+ * @param {import("./utils").testCallBackFuncCallBack} myFunc 
+ * @returns {string}
+ */
+const testCallBackFunc = (myFunc) => {
+    /**@type {string} */
+    const res = myFunc('3', '23');
+    return res;
+};
+
 const userService = {
     /**
      * @param {string} keyword 

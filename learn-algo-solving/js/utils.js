@@ -1,4 +1,12 @@
 //@ts-check
+
+/**
+ * @callback testCallBackFuncCallBack
+ * @param {string} firstStr
+ * @param {string} secondStr
+ * @returns {string}
+ */
+
 /**
  * @typedef {Object} User
  * @property {number} id
