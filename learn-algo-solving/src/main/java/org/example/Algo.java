@@ -7,6 +7,11 @@ public class Algo {
     public static void main(String[] args) {
     }
 
+    public int[] maxCounters(int N, int[] A) {
+    
+        return null;
+    }
+
     // https://leetcode.com/problems/search-insert-position/description/?envType=study-plan-v2&envId=top-interview-150
     static int searchInsert(int[] nums, int target) {
         // using binary search
@@ -14,9 +19,12 @@ public class Algo {
         int r = nums.length - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (nums[m] == target) return m;
-            else if (nums[m] > target) r = m - 1;
-            else l = m + 1;
+            if (nums[m] == target)
+                return m;
+            else if (nums[m] > target)
+                r = m - 1;
+            else
+                l = m + 1;
         }
         return l;
     }
@@ -47,7 +55,8 @@ public class Algo {
             set.add(e);
         }
         for (int i = 1; i <= A.length; i++) {
-            if (!set.contains(i)) return i;
+            if (!set.contains(i))
+                return i;
         }
         return A.length + 1;
     }
@@ -104,17 +113,17 @@ public class Algo {
         // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
         // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
         // if (K % A.length == 0)
-        //     return A;
+        // return A;
         // Deque<Integer> deque = new ArrayDeque<>();
         // if (K > A.length) {
-        //     K = K - A.length;
+        // K = K - A.length;
         // }
         // for (int n : A) {
-        //     deque.addLast(n);
+        // deque.addLast(n);
         // }
         // for (int i = 0; i < K; i++) {
-        //     Integer first = deque.removeLast();
-        //     deque.addFirst(first);
+        // Integer first = deque.removeLast();
+        // deque.addFirst(first);
         // }
         // return deque.stream().mapToInt(Integer::intValue).toArray();
         int[] res = new int[A.length];
@@ -312,7 +321,11 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+        String str = s.chars()
+                .filter(Character::isLetterOrDigit)
+                .mapToObj(x -> Character.toLowerCase((char) x))
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -392,13 +405,13 @@ public class Algo {
         // int sumExpect = 0;
         // boolean existNum_0 = false;
         // for (int i = 0; i < nums.length; i++) {
-        //     sumExpect += i + 1;
-        //     sum += nums[i];
-        //     if (nums[i] == 0)
-        //         existNum_0 = true;
+        // sumExpect += i + 1;
+        // sum += nums[i];
+        // if (nums[i] == 0)
+        // existNum_0 = true;
         // }
         // if (!existNum_0)
-        //     return 0;
+        // return 0;
         // return sumExpect - sum;
         int len = nums.length;
         int sumAll = len * (len + 1) / 2;
@@ -458,8 +471,8 @@ public class Algo {
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             char cur = s.charAt(i);
-            if (stack.size() >= 1) {
-                char last = (char) stack.lastElement();
+            if (!stack.isEmpty()) {
+                char last = stack.lastElement();
                 if ((cur == last + 1) || (cur == last + 2)) {
                     stack.pop();
                     continue;
@@ -498,6 +511,8 @@ public class Algo {
                 case 'M':
                     num = 1000;
                     break;
+                default:
+                    break;
             }
             if (num < prev) {
                 res -= num;
@@ -523,10 +538,10 @@ public class Algo {
             char[] chars = strs[i].toCharArray();
             Arrays.sort(chars);
             String sortedStr = new String(chars);
-            if (map.containsKey(sortedStr) == true) {
+            if (map.containsKey(sortedStr)) {
                 map.get(sortedStr).add(strs[i]);
             }
-            if (map.containsKey(sortedStr) == false) {
+            if (!map.containsKey(sortedStr)) {
                 ArrayList<String> groupList = new ArrayList<>();
                 groupList.add(strs[i]);
                 map.put(sortedStr, groupList);
@@ -543,7 +558,7 @@ public class Algo {
         if (s.length() != t.length()) {
             return false;
         }
-        int UNICODE_LENGTH = 512;
+        final int UNICODE_LENGTH = 512;
         int[] res = new int[UNICODE_LENGTH]; // 256 for ascii, 512 for unicode
         for (int i = 0; i < s.length(); i++) {
             res[s.charAt(i)]++;
@@ -562,11 +577,11 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[]{map.get(target - nums[i]), i};
+                return new int[] { map.get(target - nums[i]), i };
             }
             map.put(nums[i], i);
         }
-        return null;
+        return new int[0];
     }
 
 }
