@@ -5,7 +5,20 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
     public static void main(String[] args) {
-        rotate(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+        removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2);
+    }
+
+    // https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150
+    public static int removeElement(int[] nums, int val) {
+        // [3,2,2,3], 3 ==> 2, nums = [2,2,_,_]
+        // [0,1,2,2,3,0,4,2], 2 ==> 5, nums = [0,1,4,0,3,_,_,_]
+        int c = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] != val) {
+                nums[c++] = nums[i];
+            }
+        }
+        return c;
     }
 
     // https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
@@ -20,7 +33,6 @@ public class Algo {
     }
 
     public int[] maxCounters(int N, int[] A) {
-    
         return null;
     }
 
@@ -117,24 +129,27 @@ public class Algo {
         return res;
     }
 
+    static int[] cyclicRotationDeque(int[] A, int K) {
+        if (K % A.length == 0)
+            return A;
+        Deque<Integer> deque = new ArrayDeque<>();
+        if (K > A.length) {
+            K = K - A.length;
+        }
+        for (int n : A) {
+            deque.addLast(n);
+        }
+        for (int i = 0; i < K; i++) {
+            Integer first = deque.removeLast();
+            deque.addFirst(first);
+        }
+        return deque.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     static int[] cyclicRotation(int[] A, int K) {
         // A = [3, 8, 9, 7, 6], K = 1 ==> [6, 3, 8, 9, 7]
         // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
         // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
-        // if (K % A.length == 0)
-        // return A;
-        // Deque<Integer> deque = new ArrayDeque<>();
-        // if (K > A.length) {
-        // K = K - A.length;
-        // }
-        // for (int n : A) {
-        // deque.addLast(n);
-        // }
-        // for (int i = 0; i < K; i++) {
-        // Integer first = deque.removeLast();
-        // deque.addFirst(first);
-        // }
-        // return deque.stream().mapToInt(Integer::intValue).toArray();
         int[] res = new int[A.length];
         for (int i = 0; i < A.length; i++) {
             // check The Caesar Cipher
@@ -330,11 +345,7 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars()
-                .filter(Character::isLetterOrDigit)
-                .mapToObj(x -> Character.toLowerCase((char) x))
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                .toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -586,7 +597,7 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[] { map.get(target - nums[i]), i };
+                return new int[]{map.get(target - nums[i]), i};
             }
             map.put(nums[i], i);
         }
