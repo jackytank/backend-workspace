@@ -5,7 +5,29 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
     public static void main(String[] args) {
-        removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2);
+        System.out.println(containsDuplicateHashMap(new int[]{1, 2, 3, 1}));
+    }
+
+    static boolean containsDuplicateHashMap(int[] nums) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int e : nums) {
+            if (m.containsKey(e)) {
+                int x = m.get(e);
+                m.put(e, ++x);
+                if (x == 1) return true;
+            } else {
+                m.put(e, 0);
+            }
+        }
+        return false;
+    }
+
+    static boolean containsDuplicateXOR(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i++) {
+            if ((nums[i] ^ nums[i + 1]) == 0) return true;
+        }
+        return false;
     }
 
     // https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150
