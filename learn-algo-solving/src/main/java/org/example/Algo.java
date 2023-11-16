@@ -4,9 +4,31 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
+
     public static void main(String[] args) {
-        System.out.println(containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
+        System.out.println(solution1("BBABAA"));
     }
+
+    // We are given a string S of length N consisting only of letters 'A' and/or
+    // 'B'. Our goal is to obtain a string in the format "A...AB...B" (all letters
+    // 'A' occur before all letters 'B') by deleting some letters from S. In
+    // particular, strings consisting only of letters 'A' or only of letters 'B' fit
+    // this format.
+    // Write a function:
+    // class Solution { public int solution (String s); }
+    // that, given a string S, returns the minimum number of letters that need to be
+    // deleted from S in order to obtain a string in the above format.
+    // Examples:
+    // 1. Given S = "BAAABAB", the function should return 2. We can obtain "AAABB"
+    // by deleting the first occurrence of 'B' and the last occurrence of 'A'.
+    // 2. Given S = "BBABAA", the function should return 3. We can delete all
+    // occurrences of 'A' or all occurrences of 'B'.
+    // 3. Given S = "AABBBB", the function should return 0. We do not have to delete
+    // any letters, because the given string is already in the expected format.
+    // Write an efficient algorithm for the following assumptions:
+    // • N is an integer within the range [1..100,000];
+    // ⚫ string S is made only of the characters 'A' and/or 'B'.
+                
 
     // https://leetcode.com/problems/contains-duplicate-ii/
     static boolean containsNearbyDuplicate(int[] nums, int k) {
@@ -15,7 +37,8 @@ public class Algo {
             if (m.containsKey(nums[i])) {
                 int x = m.get(nums[i]);
                 int y = Math.abs(x - i);
-                if ((x == nums[i]) && (y <= k)) return true;
+                if ((x == nums[i]) && (y <= k))
+                    return true;
             } else {
                 m.put(nums[i], i);
             }
@@ -24,13 +47,13 @@ public class Algo {
         // var s = new HashSet<Integer>(nums.length / 2);
         // int c = 0;
         // for (int i = 0; i < nums.length; i++) {
-        //     if (s.contains(nums[i])) {
-        //         int x = Math.abs(c - i);
-        //         if (x <= k && (s. == nums[i])) return true;
-        //         c = i;
-        //         continue;
-        //     }
-        //     s.add(nums[i]);
+        // if (s.contains(nums[i])) {
+        // int x = Math.abs(c - i);
+        // if (x <= k && (s. == nums[i])) return true;
+        // c = i;
+        // continue;
+        // }
+        // s.add(nums[i]);
         // }
         // return false;
     }
@@ -42,7 +65,8 @@ public class Algo {
             if (m.containsKey(e)) {
                 int x = m.get(e);
                 m.put(e, ++x);
-                if (x == 1) return true;
+                if (x == 1)
+                    return true;
             } else {
                 m.put(e, 0);
             }
@@ -54,7 +78,8 @@ public class Algo {
     static boolean containsDuplicateXOR(int[] nums) {
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 1; i++) {
-            if ((nums[i] ^ nums[i + 1]) == 0) return true;
+            if ((nums[i] ^ nums[i + 1]) == 0)
+                return true;
         }
         return false;
     }
@@ -94,9 +119,12 @@ public class Algo {
         int r = A.length - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (A[m] == target) return m;
-            else if (A[m] > target) r = m - 1;
-            else l = m + 1;
+            if (A[m] == target)
+                return m;
+            else if (A[m] > target)
+                r = m - 1;
+            else
+                l = m + 1;
         }
         return l;
     }
@@ -396,7 +424,8 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x)).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x))
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
@@ -648,7 +677,7 @@ public class Algo {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                return new int[]{map.get(target - nums[i]), i};
+                return new int[] { map.get(target - nums[i]), i };
             }
             map.put(nums[i], i);
         }
