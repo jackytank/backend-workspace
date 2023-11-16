@@ -8,6 +8,7 @@ public class Algo {
         System.out.println(containsDuplicateHashMap(new int[]{1, 2, 3, 1}));
     }
 
+    // https://leetcode.com/problems/contains-duplicate/
     static boolean containsDuplicateHashMap(int[] nums) {
         Map<Integer, Integer> m = new HashMap<>();
         for (int e : nums) {
@@ -22,6 +23,7 @@ public class Algo {
         return false;
     }
 
+    // https://leetcode.com/problems/contains-duplicate/
     static boolean containsDuplicateXOR(int[] nums) {
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 1; i++) {
