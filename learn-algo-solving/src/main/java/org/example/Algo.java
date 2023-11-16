@@ -5,6 +5,18 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
     public static void main(String[] args) {
+        rotate(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+    }
+
+    // https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        int[] tmp = new int[n];
+        for (int i = 0; i < n; i++) {
+            int p = (i + k) % n;
+            tmp[p] = nums[i];
+        }
+        System.arraycopy(tmp, 0, nums, 0, n);
     }
 
     public int[] maxCounters(int N, int[] A) {
@@ -13,18 +25,15 @@ public class Algo {
     }
 
     // https://leetcode.com/problems/search-insert-position/description/?envType=study-plan-v2&envId=top-interview-150
-    static int searchInsert(int[] nums, int target) {
+    static int searchInsert(int[] A, int target) {
         // using binary search
         int l = 0;
-        int r = nums.length - 1;
+        int r = A.length - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (nums[m] == target)
-                return m;
-            else if (nums[m] > target)
-                r = m - 1;
-            else
-                l = m + 1;
+            if (A[m] == target) return m;
+            else if (A[m] > target) r = m - 1;
+            else l = m + 1;
         }
         return l;
     }
