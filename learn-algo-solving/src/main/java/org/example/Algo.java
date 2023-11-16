@@ -5,7 +5,34 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
     public static void main(String[] args) {
-        System.out.println(containsDuplicateHashMap(new int[]{1, 2, 3, 1}));
+        System.out.println(containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
+    }
+
+    // https://leetcode.com/problems/contains-duplicate-ii/
+    static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (m.containsKey(nums[i])) {
+                int x = m.get(nums[i]);
+                int y = Math.abs(x - i);
+                if ((x == nums[i]) && (y <= k)) return true;
+            } else {
+                m.put(nums[i], i);
+            }
+        }
+        return false;
+        // var s = new HashSet<Integer>(nums.length / 2);
+        // int c = 0;
+        // for (int i = 0; i < nums.length; i++) {
+        //     if (s.contains(nums[i])) {
+        //         int x = Math.abs(c - i);
+        //         if (x <= k && (s. == nums[i])) return true;
+        //         c = i;
+        //         continue;
+        //     }
+        //     s.add(nums[i]);
+        // }
+        // return false;
     }
 
     // https://leetcode.com/problems/contains-duplicate/
