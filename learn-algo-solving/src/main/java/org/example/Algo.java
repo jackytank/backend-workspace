@@ -4,24 +4,124 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Algo {
+
     public static void main(String[] args) {
+        System.out.println(solution1("BBABAA"));
+    }
+
+    // We are given a string S of length N consisting only of letters 'A' and/or
+    // 'B'. Our goal is to obtain a string in the format "A...AB...B" (all letters
+    // 'A' occur before all letters 'B') by deleting some letters from S. In
+    // particular, strings consisting only of letters 'A' or only of letters 'B' fit
+    // this format.
+    // Write a function:
+    // class Solution { public int solution (String s); }
+    // that, given a string S, returns the minimum number of letters that need to be
+    // deleted from S in order to obtain a string in the above format.
+    // Examples:
+    // 1. Given S = "BAAABAB", the function should return 2. We can obtain "AAABB"
+    // by deleting the first occurrence of 'B' and the last occurrence of 'A'.
+    // 2. Given S = "BBABAA", the function should return 3. We can delete all
+    // occurrences of 'A' or all occurrences of 'B'.
+    // 3. Given S = "AABBBB", the function should return 0. We do not have to delete
+    // any letters, because the given string is already in the expected format.
+    // Write an efficient algorithm for the following assumptions:
+    // • N is an integer within the range [1..100,000];
+    // ⚫ string S is made only of the characters 'A' and/or 'B'.
+                
+
+    // https://leetcode.com/problems/contains-duplicate-ii/
+    static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (m.containsKey(nums[i])) {
+                int x = m.get(nums[i]);
+                int y = Math.abs(x - i);
+                if ((x == nums[i]) && (y <= k))
+                    return true;
+            } else {
+                m.put(nums[i], i);
+            }
+        }
+        return false;
+        // var s = new HashSet<Integer>(nums.length / 2);
+        // int c = 0;
+        // for (int i = 0; i < nums.length; i++) {
+        // if (s.contains(nums[i])) {
+        // int x = Math.abs(c - i);
+        // if (x <= k && (s. == nums[i])) return true;
+        // c = i;
+        // continue;
+        // }
+        // s.add(nums[i]);
+        // }
+        // return false;
+    }
+
+    // https://leetcode.com/problems/contains-duplicate/
+    static boolean containsDuplicateHashMap(int[] nums) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int e : nums) {
+            if (m.containsKey(e)) {
+                int x = m.get(e);
+                m.put(e, ++x);
+                if (x == 1)
+                    return true;
+            } else {
+                m.put(e, 0);
+            }
+        }
+        return false;
+    }
+
+    // https://leetcode.com/problems/contains-duplicate/
+    static boolean containsDuplicateXOR(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i++) {
+            if ((nums[i] ^ nums[i + 1]) == 0)
+                return true;
+        }
+        return false;
+    }
+
+    // https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150
+    public static int removeElement(int[] nums, int val) {
+        // [3,2,2,3], 3 ==> 2, nums = [2,2,_,_]
+        // [0,1,2,2,3,0,4,2], 2 ==> 5, nums = [0,1,4,0,3,_,_,_]
+        int c = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] != val) {
+                nums[c++] = nums[i];
+            }
+        }
+        return c;
+    }
+
+    // https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
+    public static void rotate(int[] nums, int k) {
+        int n = nums.length;
+        int[] tmp = new int[n];
+        for (int i = 0; i < n; i++) {
+            int p = (i + k) % n;
+            tmp[p] = nums[i];
+        }
+        System.arraycopy(tmp, 0, nums, 0, n);
     }
 
     public int[] maxCounters(int N, int[] A) {
-    
         return null;
     }
 
     // https://leetcode.com/problems/search-insert-position/description/?envType=study-plan-v2&envId=top-interview-150
-    static int searchInsert(int[] nums, int target) {
+    static int searchInsert(int[] A, int target) {
         // using binary search
         int l = 0;
-        int r = nums.length - 1;
+        int r = A.length - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (nums[m] == target)
+            if (A[m] == target)
                 return m;
-            else if (nums[m] > target)
+            else if (A[m] > target)
                 r = m - 1;
             else
                 l = m + 1;
@@ -108,24 +208,27 @@ public class Algo {
         return res;
     }
 
+    static int[] cyclicRotationDeque(int[] A, int K) {
+        if (K % A.length == 0)
+            return A;
+        Deque<Integer> deque = new ArrayDeque<>();
+        if (K > A.length) {
+            K = K - A.length;
+        }
+        for (int n : A) {
+            deque.addLast(n);
+        }
+        for (int i = 0; i < K; i++) {
+            Integer first = deque.removeLast();
+            deque.addFirst(first);
+        }
+        return deque.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     static int[] cyclicRotation(int[] A, int K) {
         // A = [3, 8, 9, 7, 6], K = 1 ==> [6, 3, 8, 9, 7]
         // A = [3, 8, 9, 7, 6], K = 2 ==> [7, 6, 3, 8, 9]
         // A = [3, 8, 9, 7, 6], K = 3 ==> [9, 7, 6, 3, 8]
-        // if (K % A.length == 0)
-        // return A;
-        // Deque<Integer> deque = new ArrayDeque<>();
-        // if (K > A.length) {
-        // K = K - A.length;
-        // }
-        // for (int n : A) {
-        // deque.addLast(n);
-        // }
-        // for (int i = 0; i < K; i++) {
-        // Integer first = deque.removeLast();
-        // deque.addFirst(first);
-        // }
-        // return deque.stream().mapToInt(Integer::intValue).toArray();
         int[] res = new int[A.length];
         for (int i = 0; i < A.length; i++) {
             // check The Caesar Cipher
@@ -321,11 +424,8 @@ public class Algo {
     public static boolean isPalindrome(String s) {
         if (s.isEmpty())
             return false;
-        String str = s.chars()
-                .filter(Character::isLetterOrDigit)
-                .mapToObj(x -> Character.toLowerCase((char) x))
-                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-                .toString();
+        String str = s.chars().filter(Character::isLetterOrDigit).mapToObj(x -> Character.toLowerCase((char) x))
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
         int l = 0;
         int r = str.length() - 1;
         while (l < r) {
