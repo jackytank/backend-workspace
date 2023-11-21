@@ -1,4 +1,4 @@
-package com.cipherian.cipherianmongodb.models;
+package com.cipherian.cipherianmongodb.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

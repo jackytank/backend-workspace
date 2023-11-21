@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cipherian.cipherianmongodb.models.User;
+import com.cipherian.cipherianmongodb.model.User;
 import com.cipherian.cipherianmongodb.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,8 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<List<User>> getAll() {
-        return ResponseEntity.ok(userRepository.findAll());
+        // return ResponseEntity.ok(userRepository.findAll());
+        return null;
     }
 
     @GetMapping("/{id}")

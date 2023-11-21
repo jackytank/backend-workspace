@@ -23,8 +23,7 @@ public class RedisController {
 
     @PostMapping("/strings")
     @ResponseStatus(HttpStatus.CREATED)
-    public Map.Entry<String, String> setString(
-            @RequestBody Map.Entry<String, String> map) {
+    public Map.Entry<String, String> setString(@RequestBody Map.Entry<String, String> map) {
         template.opsForValue().set(STRING_KEY_PREFIX + map.getKey(), map.getValue());
         return map;
     }
