@@ -8,9 +8,13 @@ public class Algo {
     public static void main(String[] args) {
     }
 
+    static void uniqueInMatrixMap(int[][] arr){
+        
+    }
+
     // Codility Draw Table
     public static String codilityDrawTable(int[] A, int K, int index, String table) {
-        if (A == null || A.length == 0 || K <= 0) {
+        if (A == null || A.length == 0 || K <= 0) {l
             return "Invalid input";
         }
         int longest = getLongest(A);
