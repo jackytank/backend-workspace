@@ -14,7 +14,7 @@ public class Algo {
 
     // Codility Draw Table
     public static String codilityDrawTable(int[] A, int K, int index, String table) {
-        if (A == null || A.length == 0 || K <= 0) {l
+        if (A == null || A.length == 0 || K <= 0) {
             return "Invalid input";
         }
         int longest = getLongest(A);
