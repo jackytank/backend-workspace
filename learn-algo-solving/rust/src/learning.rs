@@ -1,10 +1,75 @@
 use rand::Rng;
 use std::{cmp::Ordering, io};
 
+const NOT_A_NUMBER: &str = "Not a number!!";
+
 pub fn data_types() {
     // convert String to numeric types
-    let guess: i32 = "42 ".trim().parse().expect("Not a number!!");
+    let guess: i32 = "  42 ".trim().parse().expect(NOT_A_NUMBER);
+    // Floating-Point Types
+    let x = 2.0; // f64
+    let y: f32 = 3.0232323; // f32
+    println!("x: {}, y: {}", x, y);
     println!("guess: {}", guess);
+    // Numeric Operations
+    let sum = 5 + 10;
+    let difference = 95.5 - 4.3;
+    let quotient = 56.7 / 32.2;
+    let remainder = 43 % 5;
+    println!(
+        "sum: {}, difference: {}, quotient: {}, remainder: {}",
+        sum, difference, quotient, remainder
+    );
+    // The Boolean Type
+    let t = true;
+    let f: bool = false; // with explicit type annotation
+    println!("t: {}, f: {}", t, f);
+    // The Character Type
+    let c = 'z';
+    let z = 'ℤ';
+    let heart_eyed_cat = '❤';
+    let face = '\u{1F600}';
+    let string_emojis: &str = "😻🙀😹";
+    println!(
+        "c: {}, z: {}, heart_eyed_cat: {}, face: {}, stringEmojis: {}",
+        c, z, heart_eyed_cat, face, string_emojis
+    );
+    // The Tuple Type
+    let tup: (i32, f32, u8, char, &str) = (500, 3.32, 1, '😻', "😁👍");
+    let (x, y, z, w, v) = tup;
+    println!("x: {}, y: {}, z: {}, w: {}, v: {}", x, y, z, w, v);
+    let five_hundred = tup.0;
+    let three_point_two = tup.1;
+    let one = tup.2;
+    let cat = tup.3;
+    let smile = tup.4;
+    println!(
+        "five_hundred: {}, three_point_two: {}, one: {}, cat: {}, smile: {}",
+        five_hundred, three_point_two, one, cat, smile
+    );
+    // The Array Type
+    let a = [1, 2, 3, 4, 5];
+    let _b: [f64; 3] = [3.14, 2.718, 1.618];
+    let c = [" 32", " 64", " 128", " 256", " 512"];
+    // same as [3, 3, 3, 3, 3]
+    let _b = [3; 5];
+    for i in 0..c.len() {
+        let d: f64 = c[i].trim().parse().expect(NOT_A_NUMBER);
+        if d == 256.0 {
+            println!("Found 256.0");
+            break;
+        }
+    }
+    // Invalid array element access
+    let a = [1, 2, 3, 4, 5];
+    println!("Please enter an array index.");
+    let mut idx = String::new();
+    io::stdin()
+        .read_line(&mut idx)
+        .expect("Failed to read line");
+    let idx: usize = idx.trim().parse().expect(NOT_A_NUMBER);
+    let element = a[idx];
+    println!("The value of the element at index {} is: {}", idx, element);
 }
 
 pub fn variables_and_mutability() {
