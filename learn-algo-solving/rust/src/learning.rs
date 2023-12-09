@@ -3,7 +3,69 @@ use std::{cmp::Ordering, io};
 
 const NOT_A_NUMBER: &str = "Not a number!!";
 
+pub fn control_flow() {
+    let number = {
+        let a = 10;
+        a * 3
+    };
+    if number < 30 {
+        println!("number is less than 30");
+    } else if number > 30 {
+        println!("number is greater than 30");
+    } else {
+        println!("number is equal to 30");
+    }
+    // Using if in a let Statement
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+    let number = if condition {
+        let n = 10 / 2;
+        n * 3
+    } else {
+        5
+    };
+    println!("The value of number is: {}", number);
+    // Repetition with Loops (loop, while, and for)
+    let mut counter = 0;
+    loop {
+        counter += 1;
+        println!("counter: {}", counter);
+        if counter == 10 {
+            break;
+        }
+    }
+    counter = 0;
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+    println!("The result is: {}", result);
+    // Loop Labels to Disambiguate Between Multiple Loops
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count: {count}");
+        let mut remaining = 11;
+        loop {
+            println!("remaining: {remaining}");
+            if remaining == 0 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+    println!("End count: {count}");
+}
+
 pub fn data_types() {
+    fn five() -> i32 {
+        5
+    }
     // convert String to numeric types
     let guess: i32 = "  42 ".trim().parse().expect(NOT_A_NUMBER);
     // Floating-Point Types
@@ -63,13 +125,22 @@ pub fn data_types() {
     // Invalid array element access
     let a = [1, 2, 3, 4, 5];
     println!("Please enter an array index.");
-    let mut idx = String::new();
-    io::stdin()
-        .read_line(&mut idx)
-        .expect("Failed to read line");
+    let mut idx = "   4";
+    // io::stdin()
+    //     .read_line(&mut idx)
+    //     .expect("Failed to read line");
     let idx: usize = idx.trim().parse().expect(NOT_A_NUMBER);
     let element = a[idx];
     println!("The value of the element at index {} is: {}", idx, element);
+
+    let y = {
+        let x = 10;
+        x + 1
+    };
+    println!("y: {}", y);
+
+    let x = five();
+    println!("x: {}", x);
 }
 
 pub fn variables_and_mutability() {

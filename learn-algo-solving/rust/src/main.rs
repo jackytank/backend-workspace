@@ -2,6 +2,6 @@
 mod learning;
 
 fn main() {
-    learning::data_types()
+    learning::control_flow()
 }
 
