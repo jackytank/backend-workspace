@@ -3,6 +3,39 @@ use std::{cmp::Ordering, io};
 
 const NOT_A_NUMBER: &str = "Not a number!!";
 
+pub fn ownership() {
+    let mut hello = String::from("Hello");
+    let world = " world";
+    let mut hello_world = hello + world;
+    hello_world.push_str("!");
+    println!("{}", hello_world);
+    for c in hello_world.chars() {
+        print!("{}, ", c);
+    }
+    println!("");
+    // we are in fact copying the pointer, length, and capacity,
+    // which is a total of 3 machine words
+    // Rust considers s1 to no longer be valid and, therefore,
+    // Rust doesn’t need to free anything when s1 goes out of scope.
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+    println!("s1 = {}, s2 = {}", s1, s2);
+    // Stack-Only Data: Copy, because Copy trait is implemented
+    let x = 5;
+    let y = x;
+    println!("x = {}, y = {}", x, y);
+    // Ownership and Functions
+    fn takes_ownership(some_string: String){
+        println!("{}", some_string);
+    }
+    fn makes_copy(some_integer: i32){
+        println!("{}", some_integer);
+    }
+    let s = String::from("hello");
+    
+
+}
+
 pub fn control_flow() {
     let number = {
         let a = 10;
@@ -17,7 +50,7 @@ pub fn control_flow() {
     }
     // Using if in a let Statement
     let condition = true;
-    let number = if condition { 5 } else { 6 };
+    let _number = if condition { 5 } else { 6 };
     let number = if condition {
         let n = 10 / 2;
         n * 3
@@ -131,7 +164,7 @@ pub fn data_types() {
         five_hundred, three_point_two, one, cat, smile
     );
     // The Array Type
-    let a = [1, 2, 3, 4, 5];
+    let _a = [1, 2, 3, 4, 5];
     let _b: [f64; 3] = [3.14, 2.718, 1.618];
     let c = [" 32", " 64", " 128", " 256", " 512"];
     // same as [3, 3, 3, 3, 3]
@@ -146,7 +179,7 @@ pub fn data_types() {
     // Invalid array element access
     let a = [1, 2, 3, 4, 5];
     println!("Please enter an array index.");
-    let mut idx = "   4";
+    let idx = "   4";
     // io::stdin()
     //     .read_line(&mut idx)
     //     .expect("Failed to read line");

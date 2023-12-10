@@ -1,7 +1,5 @@
-
 mod learning;
 
 fn main() {
-    learning::control_flow()
+    learning::ownership()
 }
-
