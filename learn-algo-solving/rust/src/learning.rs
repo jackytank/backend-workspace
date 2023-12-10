@@ -60,6 +60,27 @@ pub fn control_flow() {
         count += 1;
     }
     println!("End count: {count}");
+    // Conditional Loops with while
+    let mut number = 5;
+    while number != 0 {
+        println!("{number}s");
+        number -= 1;
+    }
+    println!("LIFTOFF!!!");
+    // Looping Through a Collection with for
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+    while index < 5 {
+        println!("the value is: {}", a[index]);
+        index += 1;
+    }
+    for e in a {
+        println!("the value is: {}", e);
+    }
+    for num in (1..5).rev() {
+        println!("{}!", num);
+    }
+    println!("LIFTOFF!!!");
 }
 
 pub fn data_types() {
