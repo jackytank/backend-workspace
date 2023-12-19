@@ -25,15 +25,74 @@ pub fn ownership() {
     let y = x;
     println!("x = {}, y = {}", x, y);
     // Ownership and Functions
-    fn takes_ownership(some_string: String){
+    fn takes_ownership(some_string: String) {
         println!("{}", some_string);
     }
-    fn makes_copy(some_integer: i32){
+    fn makes_copy(some_integer: i32) {
         println!("{}", some_integer);
     }
     let s = String::from("hello");
-    
+}
 
+pub mod how_to_cp_rust {
+    use std::io;
+
+    pub fn main() {
+        // let number1 = take_int();
+        // let number2 = take_int();
+        // println!("{}", number1 * number2);
+
+        // let arr = take_vector();
+        // let mut sum = 0;
+        // for i in 0..arr.len() {
+        //     sum += arr[i];
+        // }
+        // println!("{}", sum);
+        // string_to_vec_char("hello");
+
+        let str1 = take_string();
+        println!("{:?}", str1);
+        println!(
+            "First and last characters of the string: {}, {}",
+            str1[0],
+            str1[str1.len() - 1]
+        );
+        println!("toString: {}", to_string(str1));
+    }
+
+    pub fn to_string(vec: Vec<char>) -> String {
+        return vec.iter().collect::<String>();
+    }
+
+    pub fn take_string() -> Vec<char> {
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let vec: Vec<char> = input.trim().chars().collect();
+        vec
+    }
+
+    pub fn string_to_vec_char(s: &str) -> Vec<char> {
+        let v: Vec<char> = s.chars().collect();
+        println!("{:?}", v);
+        v
+    }
+
+    pub fn take_vector() -> Vec<usize> {
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let arr: Vec<usize> = input
+            .trim()
+            .split_whitespace()
+            .map(|x| x.parse().unwrap())
+            .collect();
+        return arr;
+    }
+
+    pub fn take_int() -> usize {
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        return input.trim().parse().unwrap();
+    }
 }
 
 pub fn control_flow() {
