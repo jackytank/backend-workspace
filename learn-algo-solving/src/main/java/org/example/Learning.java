@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-
 import lombok.*;
 
 import static java.util.Map.Entry.*;
@@ -26,13 +25,32 @@ class LearnDSA {
     public static void main(String[] args) throws IOException {
     }
 
-    public void selectionSort(int[] arr) {
-        int len = arr.length;
-        for (int i = 0; i < arr.length; i++) {
-
+    public static void guessTheNumber() {
+        System.out.println("Guess the number");
+        final int secretNumber = new Random().nextInt(100) + 1;
+        try (Scanner sc = new Scanner(System.in)) {
+            while (true) {
+                System.out.println("Please input your number");
+                String input = sc.nextLine();
+                int guess;
+                try {
+                    guess = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input, please input a number");
+                    continue;
+                }
+                System.out.println("Your guess is: " + guess);
+                if (guess == secretNumber) {
+                    System.out.println("You guessed it!");
+                    break;
+                } else if (guess < secretNumber) {
+                    System.out.println("Too small");
+                } else {
+                    System.out.println("Too big");
+                }
+            }
         }
-    };
-
+    }
 }
 
 class LearnStream {
