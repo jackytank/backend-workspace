@@ -1,4 +1,4 @@
-package com.example.demo.redis;
+package com.example.demo.redis.controller;
 
 import java.util.Map;
 import java.util.Objects;

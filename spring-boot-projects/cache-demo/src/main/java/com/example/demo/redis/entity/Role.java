@@ -1,4 +1,4 @@
-package com.example.demo.redis;
+package com.example.demo.redis.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;

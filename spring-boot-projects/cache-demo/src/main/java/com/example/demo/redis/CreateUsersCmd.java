@@ -10,6 +10,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.redis.entity.Role;
+import com.example.demo.redis.entity.User;
+import com.example.demo.redis.repo.RoleRepository;
+import com.example.demo.redis.repo.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
