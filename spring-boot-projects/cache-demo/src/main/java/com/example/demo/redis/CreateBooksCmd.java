@@ -22,6 +22,7 @@ import com.example.demo.redis.repo.BookRepository;
 import com.example.demo.redis.repo.CategoryRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,47 +40,15 @@ public class CreateBooksCmd implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (bookRepository.count() == 0) {
-            ObjectMapper mapper = new ObjectMapper();
-            TypeReference<List<Book>> typeReference = new TypeReference<List<Book>>() {
-            };
+            Faker faker = new Faker();
+            Book book = Book.builder()
+            .pageCount(100L)
+            .thumbnail(faker.internet().image())
+            .price(1000D)
+            
 
-            List<File> files = //
-                    Files.list(Paths.get(getClass().getResource("/data/books").toURI())) //
-                            .filter(Files::isRegularFile) //
-                            .filter(path -> path.toString().endsWith(".json")) //
-                            .map(java.nio.file.Path::toFile) //
-                            .collect(Collectors.toList());
 
-            Map<String, Category> categories = new HashMap<String, Category>();
-
-            files.forEach(file -> {
-                try {
-                    log.info(">>>> Processing Book File: " + file.getPath());
-                    String categoryName = file.getName().substring(0, file.getName().lastIndexOf("_"));
-                    log.info(">>>> Category: " + categoryName);
-
-                    Category category;
-                    if (!categories.containsKey(categoryName)) {
-                        category = Category.builder().name(categoryName).build();
-                        categoryRepository.save(category);
-                        categories.put(categoryName, category);
-                    } else {
-                        category = categories.get(categoryName);
-                    }
-
-                    InputStream inputStream = new FileInputStream(file);
-                    List<Book> books = mapper.readValue(inputStream, typeReference);
-                    books.stream().forEach((book) -> {
-                        book.addCategory(category);
-                        bookRepository.save(book);
-                    });
-                    log.info(">>>> " + books.size() + " Books Saved!");
-                } catch (IOException e) {
-                    log.info("Unable to import books: " + e.getMessage());
-                }
-            });
-
-            log.info(">>>> Loaded Book Data and Created books...");
+            .build();
         }
     }
 
