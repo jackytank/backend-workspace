@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.redis.entity.Book;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 @Repository
-public interface BookRepository extends CrudRepository<Book, String> {
+public interface BookRepository extends PagingAndSortingRepository<Book, String>, CrudRepository<Book, String> {
 
 }

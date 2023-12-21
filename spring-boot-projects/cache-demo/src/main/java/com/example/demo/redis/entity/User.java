@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.validation.constraints.Email;
@@ -53,7 +54,12 @@ public class User {
     private String passwordConfirm;
 
     @Reference
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Role> roles = new HashSet<>();
+
+    @Reference
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Book> books = new HashSet<>();
 
     public void addRole(Role role) {
         roles.add(role);
