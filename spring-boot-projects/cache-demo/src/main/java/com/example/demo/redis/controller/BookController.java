@@ -21,6 +21,7 @@ import com.example.demo.redis.repo.BookRepository;
 import com.example.demo.redis.repo.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
+import redis.clients.jedis.search.RediSearchCommands;
 
 @RestController
 @RequiredArgsConstructor
