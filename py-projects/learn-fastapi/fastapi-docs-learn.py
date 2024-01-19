@@ -1,8 +1,11 @@
+from datetime import datetime, timedelta, time
 from enum import Enum
-from typing import Optional, Annotated
-
-from fastapi import FastAPI, Query, Path, Body
-from pydantic import BaseModel, Field
+from http import HTTPStatus
+from typing import Optional, Annotated, Any, Union
+from fastapi import FastAPI, Query, Path, Body, Cookie, Header, Response, Form
+from pydantic import BaseModel, Field, HttpUrl, EmailStr
+from starlette import status
+from starlette.responses import RedirectResponse, JSONResponse
 
 app = FastAPI()
 
@@ -12,6 +15,146 @@ async def root():
     return {"message": "Hello World"}
 
 
+@app.post("/dang-nhap/")
+async def dang_nhap(
+        username: Annotated[str, Form()],
+        password: Annotated[str, Form()],
+):
+    return {
+        "username": username,
+        "password": password
+    }
+
+
+class BaseVehicle(BaseModel):
+    description: str
+    type: str
+
+
+class CarVehicle(BaseVehicle):
+    type: str = "car"
+
+
+class PlaneVehicle(BaseVehicle):
+    type: str = "plane"
+    size: int
+
+
+items = {
+    "item1": {"description": "All my friends drive a low rider", "type": "car"},
+    "item2": {
+        "description": "Music is my aeroplane, it's my aeroplane",
+        "type": "plane",
+        "size": 5,
+    },
+}
+
+
+@app.get("/keyword-weights/",
+         response_model=dict[str, float],
+         status_code=status.HTTP_200_OK
+         )
+async def read_keyword_weights():
+    return {
+        "foo": 2.3,
+        "bar": 3.4
+    }
+
+
+@app.get("/vehicles/{vehicle_id}",
+         response_model=Union[PlaneVehicle, CarVehicle],
+         response_model_exclude_unset=True,
+         status_code=HTTPStatus.INTERNAL_SERVER_ERROR
+         )
+async def read_vehicle(vehicle_id: str):
+    return items[vehicle_id]
+
+
+class NguoiBase(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class NguoiIn(NguoiBase):
+    password: str
+
+
+class NguoiOut(NguoiBase):
+    pass
+
+
+class NguoiInDB(NguoiBase):
+    hashed_password: str
+
+
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+
+def fake_save_user(user_in: NguoiIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    user_in_db = NguoiInDB(**user_in.model_dump(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+
+@app.post("/tao-nguoi/", response_model=NguoiOut)
+async def tao_nguoi(nguoi_in: NguoiIn):
+    nguoi_saved = fake_save_user(nguoi_in)
+    return nguoi_saved
+
+
+@app.get("/portal")
+async def get_portal(teleport: bool = False) -> Response:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return JSONResponse(content={"message": "Here's your interdimensional portal."})
+
+
+class StupidBaseUser(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class StupidUserIn(StupidBaseUser):
+    password: str
+
+
+@app.post("/create-user/")
+async def create_user(user: StupidUserIn) -> StupidBaseUser:
+    return user
+
+
+class CookieModel(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list[str] = []
+
+
+@app.get("/cookies/", response_model=list[CookieModel])
+async def read_cookies(
+        ads_id: Annotated[str | None, Cookie()] = None,
+        user_agent: Annotated[str | None, Header()] = None,
+        x_token: Annotated[list[str] | None, Header()] = None
+) -> Any:
+    print(ads_id)
+    print(user_agent)
+    print(x_token)
+    return [
+        {"name": "peanut butter", "price": 10.5},
+        {"name": "chocolate chip", "price": 12.5},
+    ]
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
 class ShitModel(BaseModel):
     name: str
     description: str | None = Field(
@@ -19,12 +162,41 @@ class ShitModel(BaseModel):
     )
     price: float = Field(gt=0, description="The price must be greater than zero")
     tax: float | None = None
+    skills: list[str] = []
+    tags: set[str] = set()
+    image: Image | None = None
+    images: list[Image] | None = None
 
 
-@app.put("/shits/{shit_id}")
-async def update_shit(shit_id: int, item: Annotated[ShitModel, Body(embed=True)]):
-    results = {"shit_id": shit_id, "item": item}
-    return results
+@app.put("/times/{time_id}")
+async def update_time(
+        time_id: int,
+        start_datetime: Annotated[datetime | None, Body()] = None,
+        end_datetime: Annotated[datetime | None, Body()] = None,
+        repeat_at: Annotated[time | None, Body()] = None,
+        process_after: Annotated[timedelta | None, Body()] = None,
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "time_id": time_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "repeat_at": repeat_at,
+        "process_after": process_after,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+@app.put("/shits/{shit_id}", response_model=ShitModel)
+async def update_shit(
+        shit_id: int,
+        item: Annotated[ShitModel, Body(embed=True)],
+):
+    return {
+        "name": str(shit_id) + item.name
+    }
 
 
 @app.get("/shits/{shit_id}")
