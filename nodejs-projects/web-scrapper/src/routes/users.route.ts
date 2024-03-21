@@ -23,6 +23,6 @@ export class UserRoute implements Routes {
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateUserDto), this.user.updateUser);
     this.router.delete(`${this.path}/:id(\\d+)`, this.user.deleteUser);
     // --SCRAPPER--
-    this.router.get('/scrapper/:webUrl', this.scrapper.getScrapping);
+    this.router.get('/crawl/table', this.scrapper.getScrapping);
   }
 }
